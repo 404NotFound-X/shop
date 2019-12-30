@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登录</title>
+    <script src="js/jquery-3.3.1.js"></script>
+    <script>
+        $(function(){
+            $("#loginForm").submit(function () {
+                $.post("loginServlet",$($("#loginForm")).serialize(),function (data) {
+                    if(data.flag){//登录成功
+                        location.href="index.html"
+                    }else{//注册失败
+                        $("#errorMsg").html(data.errorMsg)
+                    }
+                })
+                return false
+            })
+        })
+    </script>
+    <link rel="stylesheet" type="text/css" href="css/login.css">
+</head>
+<body>
+    <div class="box">
+        <h2>Login</h2>
+        <form id="loginForm">
+            <div class="inputBox">
+                <input type="text" id="username" name="username" required>
+                <label>Username</label>
+            </div>
+            <div class="inputBox">
+                <input type="password" id="password" name="password" required>
+                <label>Password</label>
+            </div>
+            <div class="inputBox">
+                <input type="text" id="check" name="check" required>
+                <label>Checkcode</label>
+                <img src="checkCode" id="img" height="32px" alt="" onclick="changeCheckCode(this)">
+                <script type="text/javascript">
+                    //图片点击事件
+                    function changeCheckCode(img) {
+                        img.src="checkCode?"+new Date().getTime();
+                    }
+                </script>
+            </div>
+            <div id="errorMsg" style="color: #03a9f4"></div>
+            <input type="submit" name="" value="Submit">
+            <div style="color: white;float: right;font-size: small">还没有账号？<a href="register.html" style="color:#03a9f4">立即注册!</a></div>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>首页</title>
+    <link rel="stylesheet" type="text/css" href="./css/index.css">
+    <link rel="stylesheet" type="text/css" href="./css/reset.css">
+    <link rel="stylesheet" type="text/css" href="./css/search-box.css">
+    <link rel="stylesheet" type="text/css" href="./css/animate.css">
+    <link rel="stylesheet" type="text/css" href="./font/iconfont.css">
+    <script src="js/jquery-3.3.1.js"></script>
+    <script>
+        $(function () {
+            /**轮播图**/
+                //遍历添加索引值
+            var length = $('.slider-item a').length;
+            for (var i = 0; i < length; i++) {
+                $('.slider-item a')[i].index = i;
+            }
+            //将第一张图片设为可见，css()方法修改样式
+            $('.slider img').eq(0).css({
+                display: "block"
+            });
+            $('.slider-item a').eq(0).css({
+                backgroundColor: "#bbbabc"
+            });
+            $('.slider-item a').click(function () {
+                var index = this.index;
+                $(this).css({
+                    backgroundColor: "#bbbabc"
+                }).siblings().css({
+                    backgroundColor: "#555555"
+                });
+                $('.slider img').fadeOut(500);
+                $('.slider img').eq(index).fadeIn(600);
+            });
+            var keyIndex = 0;
+            var sliderImgs = $('.slider img');
+            var time = 0;
+            // 向左滑动事件函数
+            function moveLeft(){
+                keyIndex--;
+                if (keyIndex < 0) {
+                    keyIndex = sliderImgs.length - 1;
+                }
+                $('.slider img').fadeOut(500);
+                $('.slider img').eq(keyIndex).fadeIn(600);
+                $('.slider-item a').eq(keyIndex).css({
+                    backgroundColor: "#bbbabc"
+                }).siblings().css({
+                    backgroundColor: "#555555"
+                });
+            }
+            $(".prev").click(function(){
+                if (time == 0) {
+                    moveLeft()
+                    time = 1; //设定间隔时间 1s
+                    var timer = setInterval(function(){
+                        time--;
+                        if (time == 0) {
+                            clearInterval(timer);
+                        }
+                    }, 1000);
+                }
+            })
+            // 向右滑动事件函数
+            function moveRight(){
+                keyIndex++;
+                if (keyIndex > sliderImgs.length - 1) {
+                    keyIndex = 0;
+                }
+                $('.slider img').fadeOut(500);
+                $('.slider img').eq(keyIndex).fadeIn(600);
+                $('.slider-item a').eq(keyIndex).css({
+                    backgroundColor: "#bbbabc"
+                }).siblings().css({
+                    backgroundColor: "#555555"
+                });
+            }
+            $(".next").click(function(){
+                if (time == 0) {
+                    moveRight()
+                    time = 1; //设定间隔时间 1s
+                    var timer = setInterval(function(){
+                        time--;
+                        if (time == 0) {
+                            clearInterval(timer);
+                        }
+                    }, 1000);
+                }
+            })
+            // 定时器实现定时轮播
+            var timer = setInterval(moveRight, 4000);
+            // 当鼠标停在轮播图上面停止滑动，移开后恢复滑动
+            $('.slider').hover(function () {
+                clearInterval(timer);
+            }, function () {
+                timer = setInterval(moveRight, 4000);
+            })
+
+            /**用户下拉菜单**/
+            $(".user").mouseenter(function () {
+                $(this).children("ul").slideDown(200);
+            });
+            $(".user").mouseleave(function () {
+                $(this).children("ul").slideUp(200);
+            });
+            /**购物车下拉菜单**/
+            $(".shop").mouseenter(function () {
+                $(this).children(".pop").slideDown(200);
+            });
+            $(".shop").mouseleave(function () {
+                $(this).children(".pop").slideUp(200);
+            });
+        });
+    </script>
+</head>
+<body>
+<!-- 顶部栏 -->
+<div class="topBar">
+    <div class="container">
+        <div class="topBar_list">
+            <a href="#">SHOP商城</a>
+            <span>|</span>
+            <a href="#">云服务</a>
+            <span>|</span>
+            <a href="#">金融</a>
+            <span>|</span>
+            <a href="#">有品</a>
+            <span>|</span>
+            <a href="#">资质证照</a>
+            <span>|</span>
+            <a href="#">协议规则</a>
+            <span>|</span>
+            <a href="#">问题反馈</a>
+            <span>|</span>
+            <a href="#">Select Location</a>
+        </div>
+        <div class="shop">
+            <a href="#">
+                <i class="iconfont icon-gouwuche-fuben"></i>
+                购物车(<b>0</b>)
+            </a>
+            <div class="pop">
+                <!-- <div class="no-good">
+                        购物车中还没有商品，赶紧选购吧！
+                    </div> -->
+                <ul class="list">
+                    <li>
+                        <a href="#" class="pic"><img src="./img/products/mi9-mini.png"></a>
+                        <div class="text">小米9</div>
+                        <div class="price">
+                            <span><b class="p" style="font-weight: normal;">322229</b>元 x <b class="num" style="font-weight: normal;">1</b> </span>
+                            <i>X</i>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="#" class="pic"><img src="./img/products/mi9-mini.png"></a>
+                        <div class="text">小米9</div>
+                        <div class="price">
+                            <span><b class="p" style="font-weight: normal;">322229</b>元 x <b class="num" style="font-weight: normal;">1</b> </span>
+                            <i>X</i>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="#" class="pic"><img src="./img/products/mi9-mini.png"></a>
+                        <div class="text">小米9</div>
+                        <div class="price">
+                            <span><b class="p" style="font-weight: normal;">322229</b>元 x <b class="num" style="font-weight: normal;">1</b> </span>
+                            <i>X</i>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="#" class="pic"><img src="./img/products/mi9-mini.png"></a>
+                        <div class="text">小米9</div>
+                        <div class="price">
+                            <span><b class="p" style="font-weight: normal;">322229</b>元 x <b class="num" style="font-weight: normal;">1</b> </span>
+                            <i>X</i>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="#" class="pic"><img src="./img/products/mi9-mini.png"></a>
+                        <div class="text">小米9</div>
+                        <div class="price">
+                            <span><b class="p" style="font-weight: normal;">322229</b>元 x <b class="num" style="font-weight: normal;">1</b> </span>
+                            <i>X</i>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="#" class="pic"><img src="./img/products/mi9-mini.png"></a>
+                        <div class="text">小米9</div>
+                        <div class="price">
+                            <span><b class="p" style="font-weight: normal;">322229</b>元 x <b class="num" style="font-weight: normal;">1</b> </span>
+                            <i>X</i>
+                        </div>
+                    </li>
+                </ul>
+                <div class="total">
+                    <div class="price">
+                        <p>共8件商品</p>
+                        <h4>6062元</h4>
+                    </div>
+                    <a href="#" class="confirm">立即结算</a>
+                </div>
+            </div>
+        </div>
+        <div class="userInfor">
+            <div class="user">
+                <a href="#" class="u">
+                    用户
+                    <i class="iconfont icon-xiangxia" style="font-size: 10px"></i>
+                </a>
+                <ul>
+                    <li><a href="#">个人中心</a></li>
+                    <li><a href="#">我的收藏</a></li>
+                    <li><a href="#">我的订单</a></li>
+                    <li><a href="#">退出登录</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="login">
+            <a href="login.html">登录</a>
+            <span>|</span>
+            <a href="register.html">注册</a>
+        </div>
+    </div>
+</div>
+<!-- 导航栏 -->
+<div class="header">
+    <div class="container">
+        <!-- 商城图标 -->
+        <div class="logo">
+            <a href="#">
+                <img src="./img/logo/logo.png" style="height: 100px;margin-left: -68px">
+            </a>
+        </div>
+        <!-- 商品列表 -->
+        <div class="list">
+            <ul>
+                <li>
+                    <a href="#">手机</a>
+                    <div class="pop animated fadeIn">
+                        <ul>
+                            <li>
+                                <a href="#">
+                                    <img src="./img/products/mi9.png">
+                                </a>
+                                <h3 class="name">小米9</h3>
+                                <p class="price">2999元</p>
+                                <i></i>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <img src="./img/products/mi9.png">
+                                </a>
+                                <h3 class="name">小米9</h3>
+                                <p class="price">2999元</p>
+                                <i></i>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <img src="./img/products/mi9.png">
+                                </a>
+                                <h3 class="name">小米9</h3>
+                                <p class="price">2999元</p>
+                                <i></i>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <img src="./img/products/mi9.png">
+                                </a>
+                                <h3 class="name">小米9</h3>
+                                <p class="price">2999元</p>
+                                <i></i>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <img src="./img/products/mi9.png">
+                                </a>
+                                <h3 class="name">小米9</h3>
+                                <p class="price">2999元</p>
+                                <i></i>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <img src="./img/products/mi9.png">
+                                </a>
+                                <h3 class="name">小米9</h3>
+                                <p class="price">2999元</p>
+                                <i></i>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <a href="#">电视</a>
+                    <div class="pop animated fadeIn">
+                        <ul>
+                            <li>
+                                <a href="#">
+                                    <img src="./img/products/mi9.png">
+                                </a>
+                                <h3 class="name">小米8</h3>
+                                <p class="price">2999元</p>
+                                <i></i>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <img src="./img/products/mi9.png">
+                                </a>
+                                <h3 class="name">小米9</h3>
+                                <p class="price">2999元</p>
+                                <i></i>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <img src="./img/products/mi9.png">
+                                </a>
+                                <h3 class="name">小米9</h3>
+                                <p class="price">2999元</p>
+                                <i></i>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <img src="./img/products/mi9.png">
+                                </a>
+                                <h3 class="name">小米9</h3>
+                                <p class="price">2999元</p>
+                                <i></i>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <img src="./img/products/mi9.png">
+                                </a>
+                                <h3 class="name">小米9</h3>
+                                <p class="price">2999元</p>
+                                <i></i>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <img src="./img/products/mi9.png">
+                                </a>
+                                <h3 class="name">小米9</h3>
+                                <p class="price">2999元</p>
+                                <i></i>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <a href="#">笔记本</a>
+                </li>
+                <li>
+                    <a href="#">家电</a>
+                </li>
+                <li>
+                    <a href="#">路由器</a>
+                </li>
+                <li>
+                    <a href="#">智能硬件</a>
+                </li>
+                <li>
+                    <a href="#">服务</a>
+                </li>
+                <li>
+                    <a href="#">社区</a>
+                </li>
+            </ul>
+        </div>
+        <!-- 搜索框 -->
+        <div class="search">
+            <form class="search-box">
+                <input type="text" class="input" name="">
+                <button type="button" class="btn" name=""></button>
+                <script type="text/javascript">
+                    $(".btn").click(function(){
+                        $(".input").toggleClass("inclicked");
+                        $(".btn").toggleClass("close");
+                        $('.input').val("");
+                    })
+                </script>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- 主页内容 -->
+<div class="content">
+    <div class="container">
+        <!-- 轮播图 -->
+        <div class="slider">
+            <a href="#"><img class="img-slide" src="./img/slider/slider1.jpg"></a>
+            <a href="#"><img class="img-slide" src="./img/slider/slider2.jpg"></a>
+            <a href="#"><img class="img-slide" src="./img/slider/slider3.jpg"></a>
+            <a href="#"><img class="img-slide" src="./img/slider/slider4.jpg"></a>
+            <span class="next"></span>
+            <span class="prev"></span>
+            <div class="slider-item">
+                <a href="#"></a>
+                <a href="#"></a>
+                <a href="#"></a>
+                <a href="#"></a>
+            </div>
+        </div>
+        <!-- 商品列表 -->
+        <div class="category-list">
+            <ul>
+                <li>
+                    <a href="#">
+                        手机 电话卡
+                        <span class="iconfont icon-icon_on_the_right"></span>
+                    </a>
+                    <div class="pop">
+                        <a href="">
+                            <img src="./img/products/mi9-mini.png">
+                            <p class="name">小米9</p>
+                        </a>
+                        <a href="">
+                            <img src="./img/products/mi9-mini.png">
+                            <p class="name">小米9</p>
+                        </a>
+                        <a href="">
+                            <img src="./img/products/mi9-mini.png">
+                            <p class="name">小米9</p>
+                        </a>
+                        <a href="">
+                            <img src="./img/products/mi9-mini.png">
+                            <p class="name">小米9</p>
+                        </a>
+                        <a href="">
+                            <img src="./img/products/mi9-mini.png">
+                            <p class="name">小米9</p>
+                        </a>
+                        <a href="">
+                            <img src="./img/products/mi9-mini.png">
+                            <p class="name">小米9</p>
+                        </a>
+                        <a href="">
+                            <img src="./img/products/mi9-mini.png">
+                            <p class="name">小米9</p>
+                        </a>
+                        <a href="">
+                            <img src="./img/products/mi9-mini.png">
+                            <p class="name">小米9</p>
+                        </a>
+                        <a href="">
+                            <img src="./img/products/mi9-mini.png">
+                            <p class="name">小米9</p>
+                        </a>
+                        <a href="">
+                            <img src="./img/products/mi9-mini.png">
+                            <p class="name">小米9</p>
+                        </a>
+                        <a href="">
+                            <img src="./img/products/mi9-mini.png">
+                            <p class="name">小米9</p>
+                        </a>
+                        <a href="">
+                            <img src="./img/products/mi9-mini.png">
+                            <p class="name">小米9</p>
+                        </a>
+                    </div>
+                </li>
+                <li>
+                    <a href="#">
+                        电视 盒子
+                        <span class="iconfont icon-icon_on_the_right"></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        笔记本 平板
+                        <span class="iconfont icon-icon_on_the_right"></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        家电 插线板
+                        <span class="iconfont icon-icon_on_the_right"></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        出行 穿戴
+                        <span class="iconfont icon-icon_on_the_right"></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        智能 路由器
+                        <span class="iconfont icon-icon_on_the_right"></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        电源 配件
+                        <span class="iconfont icon-icon_on_the_right"></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        健康 儿童
+                        <span class="iconfont icon-icon_on_the_right"></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        耳机 音响
+                        <span class="iconfont icon-icon_on_the_right"></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        生活 箱包
+                        <span class="iconfont icon-icon_on_the_right"></span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!-- 广告位 -->
+        <div class="advertising">
+            <ul class="menu">
+                <li class="border-r border-b"><a href=""><i class="iconfont icon-miaosha"></i><span>超值秒杀</span></a></li>
+                <li class="border-r border-b"><a href="" ><i class="iconfont icon-iconqyxx"></i><span>企业团购</span></a></li>
+                <li class="border-b"><a href=""><i class="iconfont icon-youhuima"></i><span>优惠券</span></a></li>
+                <li class="border-r"><a href=""><i class="iconfont icon-simqia"></i><span>手机卡</span></a></li>
+                <li class="border-r"><a href=""><i class="iconfont icon-gengxin"></i><span>以旧换新</span></a></li>
+                <li><a href=""><i class="iconfont icon-huafei"></i><span>话费充值</span></a></li>
+            </ul>
+            <a href="" class="pic"><img src="./img/advertising/adv01.jpg"></a>
+            <a href="" class="pic"><img src="./img/advertising/adv02.jpg"></a>
+            <a href="" class="pic"><img src="./img/advertising/adv03.jpg"></a>
+        </div>
+    </div>
+</div>
+<!-- 内容详情 -->
+<div class="detail">
+    <div class="container">
+        <!-- 手机 -->
+        <div class="phone">
+            <div class="advertising">
+                <a href=""><img src="./img/advertising/ad01.jpg"></a>
+            </div>
+            <div class="title">
+                <span class="tit">手机</span>
+                <a href="" class="all">查看全部<i class="iconfont icon-xiangyou3"></i></a>
+            </div>
+            <div class="block">
+                <div class="adv-box col-5">
+                    <a href="" class="single"><img src="./img/advertising/ad_left01.jpg"></a>
+                </div>
+                <div class="good-box">
+                    <div class="col-5 good-item">
+                        <a href="" class="pic"><img src="./img/products/xiaomi9.png"></a>
+                        <h3 class="name">小米9</h3>
+                        <h4 class="desc">潮流镜面渐变色，2400万自拍旗舰</h4>
+                        <p class="price"><span>1599元</span></p>
+                    </div>
+                    <div class="col-5 good-item">
+                        <a href="" class="pic"><img src="./img/products/xiaomi9.png"></a>
+                        <h3 class="name">小米9</h3>
+                        <h4 class="desc">潮流镜面渐变色，2400万自拍旗舰</h4>
+                        <p class="price"><span>1599元</span></p>
+                    </div>
+                    <div class="col-5 good-item">
+                        <a href="" class="pic"><img src="./img/products/xiaomi9.png"></a>
+                        <h3 class="name">小米9</h3>
+                        <h4 class="desc">潮流镜面渐变色，2400万自拍旗舰</h4>
+                        <p class="price"><span>1599元</span></p>
+                    </div>
+                    <div class="col-5 good-item">
+                        <a href="" class="pic"><img src="./img/products/xiaomi9.png"></a>
+                        <h3 class="name">小米9</h3>
+                        <h4 class="desc">潮流镜面渐变色，2400万自拍旗舰</h4>
+                        <p class="price"><span>1599元</span></p>
+                    </div>
+                    <div class="col-5 good-item">
+                        <a href="" class="pic"><img src="./img/products/xiaomi9.png"></a>
+                        <h3 class="name">小米9</h3>
+                        <h4 class="desc">潮流镜面渐变色，2400万自拍旗舰</h4>
+                        <p class="price"><span>1599元</span></p>
+                    </div>
+                    <div class="col-5 good-item">
+                        <a href="" class="pic"><img src="./img/products/xiaomi9.png"></a>
+                        <h3 class="name">小米9</h3>
+                        <h4 class="desc">潮流镜面渐变色，2400万自拍旗舰</h4>
+                        <p class="price"><span>1599元</span></p>
+                    </div>
+                    <div class="col-5 good-item">
+                        <a href="" class="pic"><img src="./img/products/xiaomi9.png"></a>
+                        <h3 class="name">小米9</h3>
+                        <h4 class="desc">潮流镜面渐变色，2400万自拍旗舰</h4>
+                        <p class="price"><span>1599元</span></p>
+                    </div>
+                    <div class="col-5 good-item">
+                        <a href="" class="pic"><img src="./img/products/xiaomi9.png"></a>
+                        <h3 class="name">小米9</h3>
+                        <h4 class="desc">潮流镜面渐变色，2400万自拍旗舰</h4>
+                        <p class="price"><span>1599元</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 家具 -->
+        <div class="appliance">
+            <div class="advertising">
+                <a href=""><img src="./img/advertising/ad01.jpg"></a>
+            </div>
+            <div class="title">
+                <span class="tit">家电</span>
+                <ul class="list">
+                    <li><a href="" class="active">热门</a></li>
+                    <li><a href="">电视影音</a></li>
+                </ul>
+            </div>
+            <div class="block">
+                <div class="adv-box">
+                    <a href="" class="double"><img src="./img/advertising/ad_left02.jpg"></a>
+                    <a href="" class="double"><img src="./img/advertising/ad_left03.jpg"></a>
+                </div>
+                <div class="good-box">
+                    <div class="col-5 good-item">
+                        <a href="" class="pic"><img src="./img/products/washer.png"></a>
+                        <h3 class="name">米家互联网洗烘一体机Pro 10kg</h3>
+                        <h4 class="desc">智能洗烘，省心省力</h4>
+                        <p class="price"><span>2999元</span></p>
+                    </div>
+                    <div class="col-5 good-item">
+                        <a href="" class="pic"><img src="./img/products/washer.png"></a>
+                        <h3 class="name">米家互联网洗烘一体机Pro 10kg</h3>
+                        <h4 class="desc">智能洗烘，省心省力</h4>
+                        <p class="price"><span>2999元</span></p>
+                    </div>
+                    <div class="col-5 good-item">
+                        <a href="" class="pic"><img src="./img/products/washer.png"></a>
+                        <h3 class="name">米家互联网洗烘一体机Pro 10kg</h3>
+                        <h4 class="desc">智能洗烘，省心省力</h4>
+                        <p class="price"><span>2999元</span></p>
+                    </div>
+                    <div class="col-5 good-item">
+                        <a href="" class="pic"><img src="./img/products/washer.png"></a>
+                        <h3 class="name">米家互联网洗烘一体机Pro 10kg</h3>
+                        <h4 class="desc">智能洗烘，省心省力</h4>
+                        <p class="price"><span>2999元</span></p>
+                    </div>
+                    <div class="col-5 good-item">
+                        <a href="" class="pic"><img src="./img/products/washer.png"></a>
+                        <h3 class="name">米家互联网洗烘一体机Pro 10kg</h3>
+                        <h4 class="desc">智能洗烘，省心省力</h4>
+                        <p class="price"><span>2999元</span></p>
+                    </div>
+                    <div class="col-5 good-item">
+                        <a href="" class="pic"><img src="./img/products/washer.png"></a>
+                        <h3 class="name">米家互联网洗烘一体机Pro 10kg</h3>
+                        <h4 class="desc">智能洗烘，省心省力</h4>
+                        <p class="price"><span>2999元</span></p>
+                    </div>
+                    <div class="col-5 good-item">
+                        <a href="" class="pic"><img src="./img/products/washer.png"></a>
+                        <h3 class="name">米家互联网洗烘一体机Pro 10kg</h3>
+                        <h4 class="desc">智能洗烘，省心省力</h4>
+                        <p class="price"><span>2999元</span></p>
+                    </div>
+                    <div class="col-5 good-item last-more">
+                        <div class="good-top">
+                            <div class="txt">
+                                <a href=""><span>小米小爱触屏音箱</span></a>
+                                <p>300元</p>
+                            </div>
+                            <a href="" class="sm-img"><img src="./img/products/xiaoai.png"></a>
+                        </div>
+                        <div class="good-more">
+                            <div class="txt">
+                                <a href=""><span>浏览更多</span></a>
+                                <a href=""><p>热门</p></a>
+                            </div>
+                            <a href=""><i class="iconfont icon-icon--"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 推荐 -->
+        <div class="commend">
+            <div class="advertising">
+                <a href=""><img src="./img/advertising/ad01.jpg"></a>
+            </div>
+            <div class="title">
+                <span class="tit">为你推荐</span>
+                <div class="page-box">
+                    <a href="" class="prev iconfont icon-iconset0433"></a>
+                    <a href="" class="next iconfont icon-iconset0434"></a>
+                </div>
+            </div>
+            <div class="block">
+                <div class="good-box cmd">
+                    <div class="col-5 good-item">
+                        <a href="" class="pic"><img src="./img/products/washer.png"></a>
+                        <h3 class="name">米家互联网洗烘一体机Pro 10kg</h3>
+                        <h4 class="desc">智能洗烘，省心省力</h4>
+                        <p class="price"><span>2999元</span></p>
+                    </div>
+                    <div class="col-5 good-item">
+                        <a href="" class="pic"><img src="./img/products/washer.png"></a>
+                        <h3 class="name">米家互联网洗烘一体机Pro 10kg</h3>
+                        <h4 class="desc">智能洗烘，省心省力</h4>
+                        <p class="price"><span>2999元</span></p>
+                    </div>
+                    <div class="col-5 good-item">
+                        <a href="" class="pic"><img src="./img/products/washer.png"></a>
+                        <h3 class="name">米家互联网洗烘一体机Pro 10kg</h3>
+                        <h4 class="desc">智能洗烘，省心省力</h4>
+                        <p class="price"><span>2999元</span></p>
+                    </div>
+                    <div class="col-5 good-item">
+                        <a href="" class="pic"><img src="./img/products/washer.png"></a>
+                        <h3 class="name">米家互联网洗烘一体机Pro 10kg</h3>
+                        <h4 class="desc">智能洗烘，省心省力</h4>
+                        <p class="price"><span>2999元</span></p>
+                    </div>
+                    <div class="col-5 good-item">
+                        <a href="" class="pic"><img src="./img/products/washer.png"></a>
+                        <h3 class="name">米家互联网洗烘一体机Pro 10kg</h3>
+                        <h4 class="desc">智能洗烘，省心省力</h4>
+                        <p class="price"><span>2999元</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 脚部 -->
+<div class="footer">
+    <div class="container">
+        <ul class="list">
+            <li>
+                <a href="" class=""><i class="iconfont icon-editor2"></i>预约维修服务</a>
+            </li>
+            <li>
+                <a href="" class=""><i class="iconfont icon-7tianwuliyoutuihuo"></i>7天无理由退货</a>
+            </li>
+            <li>
+                <a href="" class=""><i class="iconfont icon-15tianwuliyoutuihuo"></i>15天免费换货</a>
+            </li>
+            <li>
+                <a href="" class=""><i class="iconfont icon-icon--1"></i>满99元包邮</a>
+            </li>
+            <li>
+                <a href="" class=""><i class="iconfont icon-zuobiao"></i>520余家售后网点</a>
+            </li>
+        </ul>
+        <div class="nav">
+            <div class="left">
+                <dl>
+                    <dt>帮助中心</dt>
+                    <dd><a href="">账户管理</a></dd>
+                    <dd><a href="">购物指南</a></dd>
+                    <dd><a href="">订单操作</a></dd>
+                </dl>
+                <dl>
+                    <dt>服务支持</dt>
+                    <dd><a href="">售后政策</a></dd>
+                    <dd><a href="">自助服务</a></dd>
+                    <dd><a href="">相关下载</a></dd>
+                </dl>
+                <dl>
+                    <dt>线下门店</dt>
+                    <dd><a href="">商城之家</a></dd>
+                    <dd><a href="">服务网点</a></dd>
+                    <dd><a href="">授权体验店</a></dd>
+                </dl>
+                <dl>
+                    <dt>关于商城</dt>
+                    <dd><a href="">了解商城</a></dd>
+                    <dd><a href="">加入商城</a></dd>
+                    <dd><a href="">投资者关系</a></dd>
+                </dl>
+                <dl>
+                    <dt>关注我们</dt>
+                    <dd><a href="">新浪微博</a></dd>
+                    <dd><a href="">官方微信</a></dd>
+                    <dd><a href="">联系我们</a></dd>
+                </dl>
+                <dl>
+                    <dt>特色服务</dt>
+                    <dd><a href="">S 码通道</a></dd>
+                    <dd><a href="">礼物码</a></dd>
+                    <dd><a href="">防伪查询</a></dd>
+                </dl>
+            </div>
+            <div class="right">
+                <span>888-888-8888</span>
+                <p>周一至周日 8:00-18:00</p>
+                <a href="" class="contact"><i class="iconfont icon-kefu"></i>联系客服</a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

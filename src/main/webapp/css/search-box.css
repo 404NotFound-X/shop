@@ -1,0 +1,64 @@
+.search{
+	position: relative;
+	margin-top: 22px; 
+	margin-right: 13px;
+	float: right;
+}
+.search .input{
+	width: 50px;
+	height: 50px;
+	float: right;
+	border-radius: 50%;
+	border: 3px solid #000;
+	box-sizing: border-box;
+	transition: width 0.4s ease-in-out,
+				border-radius 0.8s ease-in-out,
+				padding 0.2s;
+	transition-delay: 0.4s;
+	font-size: 20px;
+}
+.search .inclicked{
+	width: 360px; 
+	border-radius: 0;
+	box-sizing: border-box;
+	padding: 0 15px;
+	padding-right: 40px;
+}
+.search .btn{
+	position: absolute;
+	width: 50px;
+	height: 50px;
+	top: 0;
+	right: 0;
+	box-sizing: border-box;
+	background: none;
+	border: none;
+	outline: none;
+	cursor: pointer;
+}
+.search .btn:before{
+	content: "";
+	width: 4px;
+	height: 22px;
+	background: black;
+	position: absolute;  
+	transform: rotate(-45deg);
+	bottom: -15px;
+	right: -5px;
+	transition: 0.3s;
+}
+.search .close:before,.close:after{
+	content: "";
+	width: 4px;
+	height: 32px;
+	background: black;
+	position: absolute;  
+	bottom: 10px;
+	right: 24px;
+}
+.search .close:before{
+	transform: rotate(-45deg);
+}
+.search .close:after{
+	transform: rotate(45deg);
+}
